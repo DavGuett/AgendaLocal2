@@ -92,44 +92,15 @@ const Create = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView className="px-4 my-6">
-        <Text className="text-2xl text-white font-psemibold">Upload Video</Text>
+        <Text className="text-2xl text-white font-psemibold">Criar Evento</Text>
 
         <FormField
-          title="Video Title"
+          title="Título do Evento"
           value={form.title}
-          placeholder="Give your video a catchy title..."
+          placeholder="Dê um título para o evento"
           handleChangeText={(e) => setForm({ ...form, title: e })}
           otherStyles="mt-10"
         />
-
-        <View className="mt-7 space-y-2">
-          <Text className="text-base text-gray-100 font-pmedium">
-            Upload Video
-          </Text>
-
-          <TouchableOpacity onPress={() => openPicker("video")}>
-            {form.video ? (
-              <Video
-                source={{ uri: form.video.uri }}
-                className="w-full h-64 rounded-2xl"
-                useNativeControls
-                resizeMode={ResizeMode.COVER}
-                isLooping
-              />
-            ) : (
-              <View className="w-full h-40 px-4 bg-black-100 rounded-2xl border border-black-200 flex justify-center items-center">
-                <View className="w-14 h-14 border border-dashed border-secondary-100 flex justify-center items-center">
-                  <Image
-                    source={icons.upload}
-                    resizeMode="contain"
-                    alt="upload"
-                    className="w-1/2 h-1/2"
-                  />
-                </View>
-              </View>
-            )}
-          </TouchableOpacity>
-        </View>
 
         <View className="mt-7 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
@@ -160,15 +131,15 @@ const Create = () => {
         </View>
 
         <FormField
-          title="AI Prompt"
+          title="Descrição"
           value={form.prompt}
-          placeholder="The AI prompt of your video...."
+          placeholder="Descrição do evento"
           handleChangeText={(e) => setForm({ ...form, prompt: e })}
           otherStyles="mt-7"
         />
 
         <CustomButton
-          title="Submit & Publish"
+          title="Criar"
           handlePress={submit}
           containerStyles="mt-7"
           isLoading={uploading}

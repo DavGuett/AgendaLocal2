@@ -5,7 +5,8 @@ import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllEvents, getLatestPosts } from "../../lib/appwrite";
-import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
+import { EmptyState, SearchInput, Trending } from "../../components";
+import CardList from "../../components/CardList";
 
 const Home = () => {
   const { data: events, refetch } = useAppwrite(getAllEvents);
@@ -31,7 +32,7 @@ const Home = () => {
         data={events}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <VideoCard title={item.title} description={item.description} />
+          <CardList title={item.title} description={item.description} />
         )}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6">

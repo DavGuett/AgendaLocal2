@@ -1,4 +1,4 @@
-import VideoCard from "./VideoCard";
+import CarList from "./CardList";
 import FormField from "./FormField";
 import CustomButton from "./CustomButton";
 import InfoBox from "./InfoBox";
@@ -8,7 +8,7 @@ import SearchInput from "./SearchInput";
 import EmptyState from "./EmptyState";
 
 export {
-  VideoCard,
+  CarList,
   FormField,
   CustomButton,
   InfoBox,
