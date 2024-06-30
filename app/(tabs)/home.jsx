@@ -4,11 +4,11 @@ import { FlatList, Image, RefreshControl, Text, View } from "react-native";
 
 import { images } from "../../constants";
 import useAppwrite from "../../lib/useAppwrite";
-import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
+import { getAllEvents, getLatestPosts } from "../../lib/appwrite";
 import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
 
 const Home = () => {
-  const { data: posts, refetch } = useAppwrite(getAllPosts);
+  const { data: events, refetch } = useAppwrite(getAllEvents);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false);
@@ -28,26 +28,20 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-primary">
       <FlatList
-        data={posts}
+        data={events}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <VideoCard
-            title={item.title}
-            thumbnail={item.thumbnail}
-            video={item.video}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
-          />
+          <VideoCard title={item.title} description={item.description} />
         )}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6">
             <View className="flex justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome Back
+                  Bem Vindo de Volta
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  JSMastery
+                  DavidGuetten
                 </Text>
               </View>
 
@@ -64,7 +58,7 @@ const Home = () => {
 
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-lg font-pregular text-gray-100 mb-3">
-                Latest Videos
+                Últimos Eventos
               </Text>
 
               <Trending posts={latestPosts ?? []} />
@@ -73,8 +67,8 @@ const Home = () => {
         )}
         ListEmptyComponent={() => (
           <EmptyState
-            title="No Videos Found"
-            subtitle="No videos created yet"
+            title="Sem Eventos Encontrados"
+            subtitle="Nenhum evento criado"
           />
         )}
         refreshControl={
