@@ -23,6 +23,7 @@ const Create = () => {
     title: "",
     thumbnail: null,
     description: "",
+    tag: "",
   });
 
   const openPicker = async (selectType) => {
@@ -127,6 +128,13 @@ const Create = () => {
           value={form.description}
           placeholder="Descrição do evento"
           handleChangeText={(e) => setForm({ ...form, description: e })}
+          otherStyles="mt-7"
+        />
+        <FormField
+          title="Tag"
+          value={form.tag}
+          placeholder="Tag para o evento"
+          handleChangeText={(e) => setForm({ ...form, tag: e })}
           otherStyles="mt-7"
         />
 
