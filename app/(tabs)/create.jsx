@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { router } from "expo-router";
-import { ResizeMode, Video } from "expo-av";
 import * as DocumentPicker from "expo-document-picker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -13,7 +12,7 @@ import {
 } from "react-native";
 
 import { icons } from "../../constants";
-import { createVideoPost } from "../../lib/appwrite";
+import { createEvent } from "../../lib/appwrite";
 import { CustomButton, FormField } from "../../components";
 import { useGlobalContext } from "../../context/GlobalProvider";
 
@@ -22,16 +21,15 @@ const Create = () => {
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({
     title: "",
-    video: null,
     thumbnail: null,
-    prompt: "",
+    description: "",
   });
 
   const openPicker = async (selectType) => {
     const result = await DocumentPicker.getDocumentAsync({
       type:
         selectType === "image"
-          ? ["image/png", "image/jpg"]
+          ? ["image/png", "image/jpg", "image/jpeg"]
           : ["video/mp4", "video/gif"],
     });
 
@@ -51,38 +49,32 @@ const Create = () => {
       }
     } else {
       setTimeout(() => {
-        Alert.alert("Document picked", JSON.stringify(result, null, 2));
+        Alert.alert("Documento selecionado", JSON.stringify(result, null, 2));
       }, 100);
     }
   };
 
   const submit = async () => {
-    if (
-      (form.prompt === "") |
-      (form.title === "") |
-      !form.thumbnail |
-      !form.video
-    ) {
-      return Alert.alert("Please provide all fields");
+    if ((form.description === "") | (form.title === "") | !form.thumbnail) {
+      return Alert.alert("Preencha todos os campos");
     }
 
     setUploading(true);
     try {
-      await createVideoPost({
+      await createEvent({
         ...form,
         userId: user.$id,
       });
 
-      Alert.alert("Success", "Post uploaded successfully");
+      Alert.alert("Sucesso", "Evento cadastrado com sucesso");
       router.push("/home");
     } catch (error) {
       Alert.alert("Error", error.message);
     } finally {
       setForm({
         title: "",
-        video: null,
         thumbnail: null,
-        prompt: "",
+        description: "",
       });
 
       setUploading(false);
@@ -104,7 +96,7 @@ const Create = () => {
 
         <View className="mt-7 space-y-2">
           <Text className="text-base text-gray-100 font-pmedium">
-            Thumbnail Image
+            Thumbnail
           </Text>
 
           <TouchableOpacity onPress={() => openPicker("image")}>
@@ -123,7 +115,7 @@ const Create = () => {
                   className="w-5 h-5"
                 />
                 <Text className="text-sm text-gray-100 font-pmedium">
-                  Choose a file
+                  Escolha um arquivo
                 </Text>
               </View>
             )}
@@ -132,9 +124,9 @@ const Create = () => {
 
         <FormField
           title="Descrição"
-          value={form.prompt}
+          value={form.description}
           placeholder="Descrição do evento"
-          handleChangeText={(e) => setForm({ ...form, prompt: e })}
+          handleChangeText={(e) => setForm({ ...form, description: e })}
           otherStyles="mt-7"
         />
 
