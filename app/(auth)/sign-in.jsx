@@ -18,7 +18,7 @@ const SignIn = () => {
 
   const submit = async () => {
     if (form.email === "" || form.password === "") {
-      Alert.alert("Error", "Please fill in all fields");
+      Alert.alert("Erro", "Preencha todos os campos");
     }
 
     setSubmitting(true);
@@ -29,10 +29,10 @@ const SignIn = () => {
       setUser(result);
       setIsLogged(true);
 
-      Alert.alert("Success", "User signed in successfully");
+      Alert.alert("Sucesso", "Login feito com sucesso");
       router.replace("/home");
     } catch (error) {
-      Alert.alert("Error", error.message);
+      Alert.alert("Erro", error.message);
     } finally {
       setSubmitting(false);
     }
@@ -54,7 +54,7 @@ const SignIn = () => {
           />
 
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora
+            Fazer login
           </Text>
 
           <FormField
@@ -66,14 +66,14 @@ const SignIn = () => {
           />
 
           <FormField
-            title="Password"
+            title="Senha"
             value={form.password}
             handleChangeText={(e) => setForm({ ...form, password: e })}
             otherStyles="mt-7"
           />
 
           <CustomButton
-            title="Sign In"
+            title="Fazer login"
             handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
@@ -81,13 +81,13 @@ const SignIn = () => {
 
           <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
-              Don't have an account?
+              Não tem uma conta?
             </Text>
             <Link
               href="/sign-up"
               className="text-lg font-psemibold text-secondary"
             >
-              Signup
+              Cadastre-se
             </Link>
           </View>
         </View>
