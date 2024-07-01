@@ -10,7 +10,6 @@ import { EmptyState, InfoBox, VideoCard } from "../../components";
 
 const Profile = () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const { data: events } = useAppwrite();
 
   const logout = async () => {
     await signOut();
@@ -23,17 +22,9 @@ const Profile = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={events}
+        data={{ data: 1 }}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <VideoCard
-            title={item.title}
-            thumbnail={item.thumbnail}
-            video={item.video}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
-          />
-        )}
+        renderItem={({ item }) => <View></View>}
         ListEmptyComponent={() => (
           <EmptyState
             title="Não há nada aqui :("
